@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Journal Detail</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #4c1d95 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #075985 0%,
+                    transparent 35%
+                ),
+                #070b16;
+
+            color: #ffffff;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #a78bfa;
+            font-size: 15px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(124, 58, 237, 0.45);
+            border-radius: 22px;
+            padding: 30px;
+
+            box-shadow:
+                0 0 30px rgba(124, 58, 237, 0.18),
+                inset 0 0 25px rgba(6, 182, 212, 0.04);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .student-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            margin-bottom: 30px;
+            padding-bottom: 22px;
+
+            border-bottom:
+                1px solid rgba(167, 139, 250, 0.18);
+        }
+
+        .avatar {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+            font-weight: bold;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 25px rgba(124, 58, 237, 0.5);
+        }
+
+        .student-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .student-header span {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+        .info-box {
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(7, 11, 22, 0.65);
+
+            border:
+                1px solid rgba(6, 182, 212, 0.18);
+
+            transition: 0.3s;
+        }
+
+        .info-box:hover {
+            transform: translateY(-3px);
+
+            border-color:
+                rgba(6, 182, 212, 0.55);
+
+            box-shadow:
+                0 0 20px rgba(6, 182, 212, 0.12);
+        }
+
+        .label {
+            display: block;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        .value {
+            color: #ffffff;
+
+            font-size: 18px;
+
+            font-weight: 600;
+        }
+
+        .present {
+            color: #22c55e;
+        }
+
+        .absent {
+            color: #ef4444;
+        }
+
+        .journal-id {
+            margin-top: 22px;
+
+            padding: 15px 18px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(124, 58, 237, 0.08);
+
+            border:
+                1px solid rgba(124, 58, 237, 0.25);
+
+            color: #ffffff;
+        }
+
+        .journal-id span {
+            color: #a78bfa;
+        }
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 13px 22px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: 600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 20px rgba(124, 58, 237, 0.25);
+
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 30px rgba(6, 182, 212, 0.4);
+        }
+
+        @media (max-width: 650px) {
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            Journal Detail
+        </h1>
+
+        <p>
+            Student journal record
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+
+        <!-- Student Header -->
+
+        <div class="student-header">
+
+            <div class="avatar">
+
+                {{ journal.student.first_name|first }}
+
+            </div>
+
+
+            <div>
+
+                <h2>
+
+                    {{ journal.student.first_name }}
+                    {{ journal.student.last_name }}
+
+                </h2>
+
+                <span>
+                    Student Information
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Journal Information -->
+
+        <div class="info-grid">
+
+
+            <!-- Student -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Student
+                </span>
+
+                <div class="value">
+
+                    {{ journal.student.first_name }}
+                    {{ journal.student.last_name }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Teacher -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Teacher
+                </span>
+
+                <div class="value">
+
+                    {{ journal.teacher }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Subject -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Subject
+                </span>
+
+                <div class="value">
+
+                    {{ journal.subject }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Class -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Class
+                </span>
+
+                <div class="value">
+
+                    {{ journal.class_room }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Date
+                </span>
+
+                <div class="value">
+
+                    {{ journal.date|date:"d.m.Y" }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Attendance -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Attendance
+                </span>
+
+                <div class="value">
+
+                    {% if journal.attendance %}
+
+                        <span class="present">
+                            ✓ Present
+                        </span>
+
+                    {% else %}
+
+                        <span class="absent">
+                            ✕ Absent
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Score -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Score
+                </span>
+
+                <div class="value">
+
+                    {% if journal.score %}
+                        {{ journal.score }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Student ID -->
+
+            <div class="info-box">
+
+                <span class="label">
+                    Student ID
+                </span>
+
+                <div class="value">
+
+                    {{ journal.student.id }}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Journal ID -->
+
+        <div class="journal-id">
+
+            <span>
+                Journal ID:
+            </span>
+
+            {{ journal.id }}
+
+        </div>
+
+
+        <!-- Back -->
+
+        <a
+            href="{% url 'journal_list' %}"
+            class="back-button"
+        >
+            ← Back to Journal
+        </a>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

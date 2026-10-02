@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Journal</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #4c1d95 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #075985 0%,
+                    transparent 35%
+                ),
+                #070b16;
+
+            color: white;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 36px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .header p {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ADD BUTTON */
+
+        .add-button {
+
+            display: inline-block;
+
+            padding: 13px 22px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: 600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 20px
+                rgba(124, 58, 237, 0.3);
+
+            transition: 0.3s;
+
+        }
+
+
+        .add-button:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 30px
+                rgba(6, 182, 212, 0.45);
+
+        }
+
+
+        /* JOURNAL LIST */
+
+        .journal-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+
+        }
+
+
+        .journal-card {
+
+            display: block;
+
+            padding: 22px 25px;
+
+            border-radius: 18px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                rgba(15, 23, 42, 0.82);
+
+            border:
+                1px solid
+                rgba(124, 58, 237, 0.35);
+
+            box-shadow:
+                0 0 25px
+                rgba(124, 58, 237, 0.08);
+
+            backdrop-filter: blur(12px);
+
+            transition: 0.3s;
+
+        }
+
+
+        .journal-card:hover {
+
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(6, 182, 212, 0.7);
+
+            box-shadow:
+                0 0 30px
+                rgba(6, 182, 212, 0.16);
+
+        }
+
+
+        /* STUDENT */
+
+        .student-name {
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            color: #ffffff;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .student-name span {
+
+            color: #a78bfa;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        /* INFO */
+
+        .info-row {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+
+        .info {
+
+            padding: 8px 12px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(7, 11, 22, 0.7);
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.15);
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+
+        }
+
+
+        .info strong {
+
+            color: #67e8f9;
+
+        }
+
+
+        .present {
+
+            color: #22c55e;
+
+            font-weight: 600;
+
+        }
+
+
+        .absent {
+
+            color: #ef4444;
+
+            font-weight: 600;
+
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            border:
+                1px solid
+                rgba(124, 58, 237, 0.3);
+
+            color: #94a3b8;
+
+        }
+
+
+        .empty-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .empty h2 {
+
+            color: white;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            body {
+
+                padding: 25px 15px;
+
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .add-button {
+
+                width: 100%;
+
+                text-align: center;
+
+            }
+
+
+            .journal-card {
+
+                padding: 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+
+        <div>
+
+            <h1>
+                Journal
+            </h1>
+
+            <p>
+                Student attendance and scores
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'journal_create' %}"
+            class="add-button"
+        >
+
+            + Add Journal Record
+
+        </a>
+
+
+    </div>
+
+
+    <!-- JOURNALS -->
+
+    {% if journals %}
+
+
+        <div class="journal-list">
+
+
+            {% for journal in journals %}
+
+
+                <a
+                    href="{% url 'journal_detail' journal.pk %}"
+                    class="journal-card"
+                >
+
+
+                    <!-- STUDENT -->
+
+                    <div class="student-name">
+
+                        <span>
+                            Student
+                        </span>
+
+                        <br>
+
+                        {{ journal.student.first_name }}
+                        {{ journal.student.last_name }}
+
+                    </div>
+
+
+                    <!-- INFORMATION -->
+
+                    <div class="info-row">
+
+
+                        <!-- SUBJECT -->
+
+                        <div class="info">
+
+                            <strong>
+                                Subject:
+                            </strong>
+
+                            {{ journal.subject.name }}
+
+                        </div>
+
+
+                        <!-- CLASS -->
+
+                        <div class="info">
+
+                            <strong>
+                                Class:
+                            </strong>
+
+                            {{ journal.class_room }}
+
+                        </div>
+
+
+                        <!-- DATE -->
+
+                        <div class="info">
+
+                            <strong>
+                                Date:
+                            </strong>
+
+                            {{ journal.date|date:"d.m.Y" }}
+
+                        </div>
+
+
+                        <!-- ATTENDANCE -->
+
+                        <div class="info">
+
+                            <strong>
+                                Attendance:
+                            </strong>
+
+
+                            {% if journal.attendance %}
+
+                                <span class="present">
+                                    ✓ Present
+                                </span>
+
+                            {% else %}
+
+                                <span class="absent">
+                                    ✕ Absent
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- SCORE -->
+
+                        <div class="info">
+
+                            <strong>
+                                Score:
+                            </strong>
+
+
+                            {% if journal.score %}
+
+                                {{ journal.score }}
+
+                            {% else %}
+
+                                —
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+
+                </a>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- EMPTY -->
+
+        <div class="empty">
+
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+
+            <h2>
+                No Journal Records
+            </h2>
+
+
+            <p>
+                There are no journal records yet.
+            </p>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

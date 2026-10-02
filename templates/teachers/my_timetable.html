@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>My Timetable</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+
+        font-family: Arial, Helvetica, sans-serif;
+
+        color: #f8fafc;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                #4c1d95 0%,
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at bottom right,
+                #075985 0%,
+                transparent 35%
+            ),
+            #070b16;
+
+        padding: 45px 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 950px;
+        margin: auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .schedule-list {
+        display: grid;
+
+        gap: 15px;
+    }
+
+    .lesson-card {
+        position: relative;
+        overflow: hidden;
+
+        display: grid;
+
+        grid-template-columns: 150px 1fr;
+
+        align-items: center;
+
+        gap: 25px;
+
+        padding: 22px 25px;
+
+        background: rgba(15, 23, 42, 0.88);
+
+        border: 1px solid rgba(
+            167,
+            139,
+            250,
+            0.2
+        );
+
+        border-radius: 18px;
+
+        transition: 0.3s ease;
+
+        box-shadow:
+            0 0 25px rgba(
+                124,
+                58,
+                237,
+                0.06
+            );
+    }
+
+    .lesson-card::before {
+        content: "";
+
+        position: absolute;
+
+        width: 120px;
+        height: 120px;
+
+        top: -60px;
+        right: -40px;
+
+        background: #06b6d4;
+
+        filter: blur(60px);
+
+        opacity: 0.1;
+    }
+
+    .lesson-card:hover {
+        transform: translateY(-3px);
+
+        border-color: rgba(
+            6,
+            182,
+            212,
+            0.35
+        );
+
+        box-shadow:
+            0 10px 30px rgba(
+                6,
+                182,
+                212,
+                0.08
+            );
+    }
+
+    .day-section {
+        position: relative;
+
+        padding-right: 20px;
+
+        border-right: 1px solid
+            rgba(148, 163, 184, 0.12);
+    }
+
+    .day-label {
+        color: #67e8f9;
+
+        font-size: 18px;
+        font-weight: bold;
+
+        margin-bottom: 7px;
+    }
+
+    .lesson-number {
+        color: #64748b;
+
+        font-size: 12px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+    }
+
+    .lesson-info {
+        position: relative;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(150px, 1fr));
+
+        gap: 14px;
+    }
+
+    .info-item {
+        padding: 12px 15px;
+
+        border-radius: 11px;
+
+        background: rgba(
+            30,
+            41,
+            59,
+            0.55
+        );
+
+        border: 1px solid rgba(
+            148,
+            163,
+            184,
+            0.08
+        );
+    }
+
+    .info-label {
+        display: block;
+
+        color: #64748b;
+
+        font-size: 10px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        color: #e2e8f0;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .subject {
+        color: #a78bfa;
+    }
+
+    .class {
+        color: #67e8f9;
+    }
+
+    .empty-card {
+        padding: 60px 25px;
+
+        text-align: center;
+
+        background: rgba(
+            15,
+            23,
+            42,
+            0.8
+        );
+
+        border: 1px dashed rgba(
+            167,
+            139,
+            250,
+            0.3
+        );
+
+        border-radius: 20px;
+
+        color: #64748b;
+    }
+
+    .empty-icon {
+        font-size: 48px;
+
+        margin-bottom: 15px;
+    }
+
+    .empty-card h3 {
+        color: #cbd5e1;
+
+        margin-bottom: 8px;
+    }
+
+    .error-card {
+        padding: 55px 25px;
+
+        text-align: center;
+
+        background: rgba(
+            127,
+            29,
+            29,
+            0.12
+        );
+
+        border: 1px solid rgba(
+            248,
+            113,
+            113,
+            0.25
+        );
+
+        border-radius: 20px;
+
+        color: #fca5a5;
+    }
+
+    .error-icon {
+        font-size: 45px;
+
+        margin-bottom: 15px;
+    }
+
+    .back-wrapper {
+        text-align: center;
+
+        margin-top: 30px;
+    }
+
+    .back-btn {
+        display: inline-block;
+
+        padding: 12px 22px;
+
+        color: #c4b5fd;
+
+        text-decoration: none;
+
+        border: 1px solid rgba(
+            167,
+            139,
+            250,
+            0.3
+        );
+
+        border-radius: 10px;
+
+        transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+        color: white;
+
+        border-color: #06b6d4;
+
+        background: rgba(
+            6,
+            182,
+            212,
+            0.06
+        );
+
+        box-shadow:
+            0 0 18px rgba(
+                6,
+                182,
+                212,
+                0.2
+            );
+
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 700px) {
+
+        body {
+            padding: 30px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .lesson-card {
+            grid-template-columns: 1fr;
+
+            gap: 18px;
+        }
+
+        .day-section {
+            padding-right: 0;
+            padding-bottom: 15px;
+
+            border-right: none;
+
+            border-bottom: 1px solid
+                rgba(148, 163, 184, 0.12);
+        }
+
+        .lesson-info {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+
+    <h1>My Timetable</h1>
+
+    <p>
+        Your weekly teaching schedule
+    </p>
+
+</div>
+
+
+{% if teacher %}
+
+    {% if timetables %}
+
+        <div class="schedule-list">
+
+            {% for timetable in timetables %}
+
+                <div class="lesson-card">
+
+                    <div class="day-section">
+
+                        <div class="day-label">
+                            {{ timetable.get_day_display }}
+                        </div>
+
+                        <div class="lesson-number">
+                            Lesson {{ timetable.lesson_number }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="lesson-info">
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Class
+                            </span>
+
+                            <span class="info-value class">
+                                {{ timetable.class_room }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Subject
+                            </span>
+
+                            <span class="info-value subject">
+                                {{ timetable.subject.name }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-card">
+
+            <div class="empty-icon">
+                📅
+            </div>
+
+            <h3>
+                No timetable assigned yet
+            </h3>
+
+            <p>
+                Your teaching schedule will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+{% else %}
+
+    <div class="error-card">
+
+        <div class="error-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Your Teacher profile has not been created yet.
+        </h3>
+
+    </div>
+
+{% endif %}
+
+
+<div class="back-wrapper">
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="back-btn"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>

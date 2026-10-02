@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Children's Grades</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        background:
+            radial-gradient(circle at top left, #4c1d95 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #075985 0%, transparent 35%),
+            #070b16;
+
+        color: white;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 42px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        margin-top: 8px;
+        color: #94a3b8;
+    }
+
+    .line {
+        height: 1px;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #06b6d4,
+            transparent
+        );
+
+        margin: 30px 0;
+    }
+
+    .parent-card {
+        padding: 20px 25px;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        border: 1px solid rgba(6, 182, 212, 0.3);
+
+        border-radius: 15px;
+
+        margin-bottom: 25px;
+    }
+
+    .parent-label {
+        color: #94a3b8;
+    }
+
+    .parent-name {
+        color: #67e8f9;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+
+        background: rgba(15, 23, 42, 0.82);
+
+        border: 1px solid rgba(167, 139, 250, 0.3);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 0 25px rgba(124, 58, 237, 0.12);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px;
+    }
+
+    th {
+        padding: 18px;
+
+        text-align: left;
+
+        color: #67e8f9;
+
+        background: rgba(6, 182, 212, 0.08);
+
+        border-bottom: 1px solid rgba(6, 182, 212, 0.25);
+
+        font-size: 14px;
+    }
+
+    td {
+        padding: 17px;
+
+        color: #e2e8f0;
+
+        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr {
+        transition: 0.3s;
+    }
+
+    tbody tr:hover {
+        background: rgba(124, 58, 237, 0.08);
+    }
+
+    .student {
+        color: white;
+        font-weight: bold;
+    }
+
+    .subject {
+        color: #c4b5fd;
+    }
+
+    .teacher {
+        color: #94a3b8;
+    }
+
+    .grade {
+        display: inline-block;
+
+        min-width: 40px;
+
+        padding: 7px 10px;
+
+        text-align: center;
+
+        border-radius: 8px;
+
+        color: #67e8f9;
+
+        background: rgba(6, 182, 212, 0.1);
+
+        border: 1px solid rgba(6, 182, 212, 0.3);
+
+        font-weight: bold;
+    }
+
+    .no-grade {
+        color: #64748b;
+        font-style: italic;
+    }
+
+    .empty {
+        padding: 35px;
+
+        text-align: center;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        border: 1px dashed #475569;
+
+        border-radius: 15px;
+
+        color: #94a3b8;
+    }
+
+    .error {
+        padding: 25px;
+
+        background: rgba(127, 29, 29, 0.15);
+
+        border: 1px solid rgba(248, 113, 113, 0.4);
+
+        border-radius: 15px;
+
+        color: #fca5a5;
+    }
+
+    .back {
+        display: inline-block;
+
+        margin-top: 30px;
+
+        padding: 12px 22px;
+
+        text-decoration: none;
+
+        color: #67e8f9;
+
+        border: 1px solid #06b6d4;
+
+        border-radius: 10px;
+
+        transition: 0.3s;
+    }
+
+    .back:hover {
+        background: rgba(6, 182, 212, 0.1);
+
+        box-shadow:
+            0 0 20px rgba(6, 182, 212, 0.25);
+
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .parent-card {
+            padding: 18px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <div class="header">
+
+        <h1>Children's Grades</h1>
+
+        <p class="subtitle">
+            Academic results of your children
+        </p>
+
+    </div>
+
+    <div class="line"></div>
+
+
+    {% if parent %}
+
+        <div class="parent-card">
+
+            <span class="parent-label">
+                Parent:
+            </span>
+
+            <span class="parent-name">
+                {{ parent.first_name }}
+                {{ parent.last_name }}
+            </span>
+
+        </div>
+
+
+        {% if journals %}
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Student</th>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Class</th>
+                            <th>Grade</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for journal in journals %}
+
+                            <tr>
+
+                                <td class="student">
+                                    {{ journal.student.first_name }}
+                                    {{ journal.student.last_name }}
+                                </td>
+
+                                <td class="subject">
+                                    {{ journal.subject.name }}
+                                </td>
+
+                                <td class="teacher">
+                                    {{ journal.teacher.first_name }}
+                                    {{ journal.teacher.last_name }}
+                                </td>
+
+                                <td>
+                                    {{ journal.class_room }}
+                                </td>
+
+                                <td>
+
+                                    {% if journal.grade %}
+
+                                        <span class="grade">
+                                            {{ journal.grade }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="no-grade">
+                                            No grade
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {{ journal.date }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+
+                <h3>No Grades Found</h3>
+
+                <p style="margin-top: 8px;">
+                    There are no grade records yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+    {% else %}
+
+        <div class="error">
+
+            <h3>Parent Profile Not Found</h3>
+
+            <p style="margin-top: 8px;">
+                Parent profile not found.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="back"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>

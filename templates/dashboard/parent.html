@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Parent Dashboard</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at top left, #4c1d95 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #075985 0%, transparent 35%),
+            #070b16;
+
+        color: white;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .header {
+        margin-bottom: 35px;
+    }
+
+    .header h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .welcome {
+        color: #cbd5e1;
+        font-size: 18px;
+    }
+
+    .role {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 8px 16px;
+
+        border: 1px solid #06b6d4;
+        border-radius: 20px;
+
+        color: #67e8f9;
+        background: rgba(6, 182, 212, 0.08);
+    }
+
+    .line {
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #06b6d4,
+            transparent
+        );
+
+        margin: 30px 0;
+    }
+
+    .menu-title {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        text-decoration: none;
+        color: white;
+
+        padding: 28px;
+        min-height: 150px;
+
+        border: 1px solid rgba(167, 139, 250, 0.35);
+        border-radius: 18px;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        box-shadow:
+            0 0 20px rgba(124, 58, 237, 0.15);
+
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+
+        border-color: #06b6d4;
+
+        box-shadow:
+            0 0 30px rgba(6, 182, 212, 0.35),
+            0 0 50px rgba(124, 58, 237, 0.2);
+    }
+
+    .icon {
+        font-size: 35px;
+        margin-bottom: 15px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .card p {
+        color: #94a3b8;
+        font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .menu {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>Parent Dashboard</h1>
+
+        <div class="welcome">
+            Welcome,
+            <strong>{{ request.user.username }}</strong>
+        </div>
+
+        <div class="role">
+            👨‍👩‍👧 Parent
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <h2 class="menu-title">
+        Parent Menu
+    </h2>
+
+    <div class="menu">
+
+        <a href="{% url 'my_children' %}" class="card">
+
+            <div class="icon">👨‍👩‍👧</div>
+
+            <h3>My Children</h3>
+
+            <p>
+                View information about your children.
+            </p>
+
+        </a>
+
+
+        <a href="{% url 'children_grades' %}" class="card">
+
+            <div class="icon">📊</div>
+
+            <h3>Children's Grades</h3>
+
+            <p>
+                Check your children's academic results.
+            </p>
+
+        </a>
+
+
+        <a href="{% url 'children_attendance' %}" class="card">
+
+            <div class="icon">📅</div>
+
+            <h3>Attendance</h3>
+
+            <p>
+                View attendance information.
+            </p>
+
+        </a>
+
+
+        <a href="{% url 'children_timetable' %}" class="card">
+
+            <div class="icon">🕐</div>
+
+            <h3>Timetable</h3>
+
+            <p>
+                View your children's school timetable.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

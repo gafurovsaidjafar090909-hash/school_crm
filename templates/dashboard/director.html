@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Director Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: #e5e7eb;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #050816 0%,
+                    #0b1030 55%,
+                    #14123a 100%
+                );
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .bg {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .aurora {
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            border-radius: 50%;
+
+            filter: blur(100px);
+
+            opacity: .20;
+
+            animation:
+                auroraMove 12s ease-in-out infinite alternate;
+        }
+
+
+        .aurora.one {
+            background: #22d3ee;
+
+            top: -220px;
+            left: -150px;
+        }
+
+
+        .aurora.two {
+            background: #a78bfa;
+
+            right: -200px;
+            top: 20%;
+
+            animation-delay: 2s;
+        }
+
+
+        .aurora.three {
+            background: #34d399;
+
+            bottom: -250px;
+            left: 35%;
+
+            animation-delay: 4s;
+        }
+
+
+        @keyframes auroraMove {
+
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(50px, 30px) scale(1.15);
+            }
+
+        }
+
+
+        /* =========================
+           STARS
+        ========================= */
+
+        .stars {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                radial-gradient(
+                    circle at 20% 30%,
+                    white 1px,
+                    transparent 1.5px
+                ),
+                radial-gradient(
+                    circle at 80% 20%,
+                    #67e8f9 1px,
+                    transparent 1.5px
+                ),
+                radial-gradient(
+                    circle at 60% 70%,
+                    #c4b5fd 1px,
+                    transparent 1.5px
+                ),
+                radial-gradient(
+                    circle at 30% 80%,
+                    white 1px,
+                    transparent 1.5px
+                );
+
+            background-size:
+                170px 170px,
+                220px 220px,
+                250px 250px,
+                200px 200px;
+
+            opacity: .35;
+
+            animation:
+                starsMove 20s linear infinite;
+        }
+
+
+        @keyframes starsMove {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-80px);
+            }
+
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            position: relative;
+
+            z-index: 2;
+
+            width: min(
+                1200px,
+                calc(100% - 32px)
+            );
+
+            margin: 0 auto;
+
+            padding: 30px 0 60px;
+        }
+
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 16px 20px;
+
+            margin-bottom: 35px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(255, 255, 255, .055);
+
+            border:
+                1px solid rgba(255, 255, 255, .13);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, .35),
+                inset 0 1px 0 rgba(255, 255, 255, .06);
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-icon {
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            font-size: 21px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 25px rgba(
+                    34,
+                    211,
+                    238,
+                    .25
+                );
+        }
+
+
+        .brand-title {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+        }
+
+
+        .brand-subtitle {
+
+            margin-top: 3px;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        .user {
+
+            text-align: right;
+        }
+
+
+        .username {
+
+            font-weight: 700;
+
+            color: #f8fafc;
+        }
+
+
+        .role {
+
+            display: inline-block;
+
+            margin-top: 5px;
+
+            padding: 4px 11px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, .08);
+
+            border:
+                1px solid rgba(34, 211, 238, .25);
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(36px, 6vw, 62px);
+
+            line-height: 1.05;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #67e8f9,
+                    #c4b5fd,
+                    #f9a8d4
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                titleGlow 4s ease-in-out infinite alternate;
+        }
+
+
+        @keyframes titleGlow {
+
+            from {
+                filter:
+                    drop-shadow(
+                        0 0 5px
+                        rgba(103, 232, 249, .1)
+                    );
+            }
+
+            to {
+                filter:
+                    drop-shadow(
+                        0 0 18px
+                        rgba(167, 139, 250, .25)
+                    );
+            }
+
+        }
+
+
+        .hero p {
+
+            margin-top: 14px;
+
+            color: #94a3b8;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           MAIN CARD
+        ========================= */
+
+        .card {
+
+            padding: 30px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255, 255, 255, .055);
+
+            border:
+                1px solid rgba(255, 255, 255, .13);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, .35),
+                inset 0 1px 0 rgba(255, 255, 255, .06);
+
+            animation:
+                cardAppear .7s ease both;
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .section-title {
+
+            margin-bottom: 22px;
+
+            font-size: 22px;
+
+            color: #f8fafc;
+        }
+
+
+        .section-title span {
+
+            color: #67e8f9;
+        }
+
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .menu-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 18px;
+        }
+
+
+        .menu-item {
+
+            position: relative;
+
+            min-height: 140px;
+
+            padding: 22px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            text-decoration: none;
+
+            color: #e2e8f0;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, .08),
+                    rgba(255, 255, 255, .025)
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, .11);
+
+            overflow: hidden;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease,
+                background .3s ease;
+        }
+
+
+        .menu-item::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -2px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent,
+                    rgba(103, 232, 249, .14),
+                    transparent
+                );
+
+            transform:
+                translateX(-100%);
+
+            transition:
+                transform .6s ease;
+        }
+
+
+        .menu-item:hover::before {
+
+            transform:
+                translateX(100%);
+        }
+
+
+        .menu-item:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(103, 232, 249, .38);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(34, 211, 238, .10),
+                    rgba(139, 92, 246, .08)
+                );
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, .3),
+                0 0 25px rgba(34, 211, 238, .08);
+        }
+
+
+        /* =========================
+           ICON
+        ========================= */
+
+        .icon {
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            font-size: 21px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, .28),
+                    rgba(6, 182, 212, .20)
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, .12);
+
+            box-shadow:
+                inset 0 1px 0
+                rgba(255, 255, 255, .08);
+        }
+
+
+        .menu-name {
+
+            margin-top: 15px;
+
+            font-size: 17px;
+
+            font-weight: 700;
+        }
+
+
+        .menu-description {
+
+            margin-top: 5px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        .bottom {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 30px;
+        }
+
+
+        .logout {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-width: 150px;
+
+            padding: 13px 25px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(6, 182, 212, .15);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .logout:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 15px 40px
+                rgba(6, 182, 212, .28),
+
+                0 0 25px
+                rgba(139, 92, 246, .20);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .page {
+
+                width:
+                    min(
+                        100% - 20px,
+                        1200px
+                    );
+
+                padding-top: 15px;
+            }
+
+
+            .topbar {
+
+                padding: 13px 15px;
+
+                border-radius: 18px;
+            }
+
+
+            .brand-subtitle {
+
+                display: none;
+            }
+
+
+            .brand-title {
+
+                font-size: 14px;
+            }
+
+
+            .brand-icon {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .username {
+
+                font-size: 13px;
+            }
+
+
+            .hero {
+
+                margin:
+                    30px 0;
+            }
+
+
+            .hero h1 {
+
+                font-size: 38px;
+            }
+
+
+            .card {
+
+                padding: 18px;
+
+                border-radius: 22px;
+            }
+
+
+            .menu-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .menu-item {
+
+                min-height: 115px;
+            }
+
+        }
+
+
+        /* =========================
+           REDUCED MOTION
+        ========================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    .01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    .01ms !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="bg">
+
+        <div class="aurora one"></div>
+        <div class="aurora two"></div>
+        <div class="aurora three"></div>
+
+        <div class="stars"></div>
+
+    </div>
+
+
+    <main class="page">
+
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🎓
+                </div>
+
+                <div>
+
+                    <div class="brand-title">
+                        School CRM
+                    </div>
+
+                    <div class="brand-subtitle">
+                        School Management System
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="user">
+
+                <div class="username">
+                    {{ request.user.username }}
+                </div>
+
+                <div class="role">
+                    Director
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <h1>
+                Director Dashboard
+            </h1>
+
+            <p>
+                Manage your school from one place
+            </p>
+
+        </section>
+
+
+        <!-- MAIN -->
+
+        <section class="card">
+
+
+            <h2 class="section-title">
+
+                <span>School</span>
+                Management
+
+            </h2>
+
+
+            <div class="menu-grid">
+
+
+                <!-- TEACHERS -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'teachers:teacher_list' %}"
+                >
+
+                    <div class="icon">
+                        👨‍🏫
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Teachers
+                        </div>
+
+                        <div class="menu-description">
+                            Manage school teachers
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- STUDENTS -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'student_list' %}"
+                >
+
+                    <div class="icon">
+                        🎓
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Students
+                        </div>
+
+                        <div class="menu-description">
+                            Manage students
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- PARENTS -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'parent_list' %}"
+                >
+
+                    <div class="icon">
+                        👨‍👩‍👧
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Parents
+                        </div>
+
+                        <div class="menu-description">
+                            Manage parents
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- SUBJECTS -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'subject_list' %}"
+                >
+
+                    <div class="icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Subjects
+                        </div>
+
+                        <div class="menu-description">
+                            Manage school subjects
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- CLASSES -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'class_list' %}"
+                >
+
+                    <div class="icon">
+                        🏫
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Classes
+                        </div>
+
+                        <div class="menu-description">
+                            Manage school classes
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- TIMETABLE -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'timetable_list' %}"
+                >
+
+                    <div class="icon">
+                        🗓️
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Timetable
+                        </div>
+
+                        <div class="menu-description">
+                            Manage school timetable
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- JOURNAL -->
+
+                <a
+                    class="menu-item"
+                    href="{% url 'journal_list' %}"
+                >
+
+                    <div class="icon">
+                        📖
+                    </div>
+
+                    <div>
+
+                        <div class="menu-name">
+                            Journal
+                        </div>
+
+                        <div class="menu-description">
+                            Manage school journal
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+
+           
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

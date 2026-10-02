@@ -1,0 +1,391 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subjects</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: #f8fafc;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #4c1d95 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #075985 0%,
+                    transparent 35%
+                ),
+                #070b16;
+
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 42px;
+            font-weight: 800;
+
+            background: linear-gradient(
+                90deg,
+                #a78bfa,
+                #06b6d4
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* ADD BUTTON */
+
+        .add-btn {
+            display: inline-block;
+
+            padding: 13px 20px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #06b6d4
+            );
+
+            border-radius: 12px;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 0 20px rgba(124, 58, 237, 0.2);
+        }
+
+        .add-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 30px rgba(6, 182, 212, 0.35);
+        }
+
+        /* DIVIDER */
+
+        .divider {
+            height: 1px;
+
+            margin-bottom: 28px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(124, 58, 237, 0.7),
+                rgba(6, 182, 212, 0.7),
+                transparent
+            );
+        }
+
+        /* SUBJECT GRID */
+
+        .subjects-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+        /* SUBJECT CARD */
+
+        .subject-card {
+            display: flex;
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 22px;
+
+            background: rgba(15, 23, 42, 0.88);
+
+            border: 1px solid rgba(124, 58, 237, 0.3);
+
+            border-radius: 18px;
+
+            text-decoration: none;
+
+            color: #f8fafc;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 0 22px rgba(124, 58, 237, 0.06);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(6, 182, 212, 0.65);
+
+            box-shadow:
+                0 0 30px rgba(6, 182, 212, 0.14);
+        }
+
+        /* ICON */
+
+        .subject-icon {
+            width: 55px;
+            height: 55px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            font-size: 25px;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #06b6d4
+            );
+
+            box-shadow:
+                0 0 20px rgba(124, 58, 237, 0.25);
+        }
+
+        /* INFO */
+
+        .subject-info {
+            flex: 1;
+        }
+
+        .subject-info h3 {
+            margin: 0 0 6px;
+
+            font-size: 18px;
+
+            color: #f8fafc;
+        }
+
+        .subject-info span {
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        /* ARROW */
+
+        .arrow {
+            color: #a78bfa;
+
+            font-size: 22px;
+
+            transition: 0.25s;
+        }
+
+        .subject-card:hover .arrow {
+            color: #06b6d4;
+
+            transform: translateX(5px);
+        }
+
+        /* EMPTY */
+
+        .empty {
+            padding: 60px 20px;
+
+            text-align: center;
+
+            background: rgba(15, 23, 42, 0.82);
+
+            border: 1px dashed rgba(148, 163, 184, 0.3);
+
+            border-radius: 20px;
+
+            color: #94a3b8;
+        }
+
+        .empty-icon {
+            margin-bottom: 15px;
+
+            font-size: 45px;
+        }
+
+        .empty h3 {
+            margin: 0 0 8px;
+
+            color: #e2e8f0;
+        }
+
+        .empty p {
+            margin: 0;
+
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 30px 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 34px;
+            }
+
+            .add-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                Subjects
+            </h1>
+
+            <p>
+                Manage all school subjects
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'subject_create' %}"
+            class="add-btn"
+        >
+            + Add Subject
+        </a>
+
+    </div>
+
+
+    <div class="divider"></div>
+
+
+    {% if subjects %}
+
+        <div class="subjects-grid">
+
+            {% for subject in subjects %}
+
+                <a
+                    href="{% url 'subject_detail' subject.pk %}"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        📚
+                    </div>
+
+                    <div class="subject-info">
+
+                        <h3>
+                            {{ subject.name }}
+                        </h3>
+
+                        <span>
+                            Subject Details
+                        </span>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h3>
+                No subjects yet
+            </h3>
+
+            <p>
+                Add your first subject to get started.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

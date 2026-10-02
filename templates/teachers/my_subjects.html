@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>My Subjects</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+
+        font-family: Arial, Helvetica, sans-serif;
+
+        color: #f8fafc;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                #4c1d95 0%,
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at bottom right,
+                #075985 0%,
+                transparent 35%
+            ),
+            #070b16;
+
+        padding: 45px 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .teacher-card {
+        position: relative;
+        overflow: hidden;
+
+        padding: 24px 28px;
+
+        margin-bottom: 25px;
+
+        background: rgba(15, 23, 42, 0.88);
+
+        border: 1px solid rgba(
+            167,
+            139,
+            250,
+            0.22
+        );
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 0 25px rgba(
+                124,
+                58,
+                237,
+                0.08
+            );
+    }
+
+    .teacher-card::before {
+        content: "";
+
+        position: absolute;
+
+        width: 130px;
+        height: 130px;
+
+        top: -65px;
+        right: -40px;
+
+        background: #7c3aed;
+
+        filter: blur(60px);
+
+        opacity: 0.12;
+    }
+
+    .teacher-label {
+        color: #64748b;
+
+        font-size: 11px;
+        font-weight: bold;
+
+        letter-spacing: 1.5px;
+
+        margin-bottom: 8px;
+    }
+
+    .teacher-name {
+        position: relative;
+
+        color: #f8fafc;
+
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .subjects-grid {
+        display: grid;
+
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+        );
+
+        gap: 18px;
+    }
+
+    .subject-card {
+        position: relative;
+        overflow: hidden;
+
+        padding: 25px;
+
+        background: rgba(15, 23, 42, 0.88);
+
+        border: 1px solid rgba(
+            6,
+            182,
+            212,
+            0.18
+        );
+
+        border-radius: 18px;
+
+        transition: 0.3s ease;
+
+        box-shadow:
+            0 0 25px rgba(
+                6,
+                182,
+                212,
+                0.05
+            );
+    }
+
+    .subject-card::before {
+        content: "";
+
+        position: absolute;
+
+        width: 90px;
+        height: 90px;
+
+        top: -45px;
+        right: -30px;
+
+        background: #06b6d4;
+
+        filter: blur(45px);
+
+        opacity: 0.12;
+    }
+
+    .subject-card:hover {
+        transform: translateY(-5px);
+
+        border-color: rgba(
+            6,
+            182,
+            212,
+            0.4
+        );
+
+        box-shadow:
+            0 10px 30px rgba(
+                6,
+                182,
+                212,
+                0.1
+            );
+    }
+
+    .subject-icon {
+        width: 48px;
+        height: 48px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 18px;
+
+        border-radius: 12px;
+
+        color: white;
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #06b6d4
+        );
+
+        font-size: 20px;
+
+        box-shadow:
+            0 0 20px rgba(
+                124,
+                58,
+                237,
+                0.2
+            );
+    }
+
+    .subject-name {
+        position: relative;
+
+        color: #67e8f9;
+
+        font-size: 20px;
+        font-weight: bold;
+
+        margin-bottom: 10px;
+    }
+
+    .description {
+        position: relative;
+
+        color: #94a3b8;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    .empty-card {
+        padding: 55px 25px;
+
+        text-align: center;
+
+        background: rgba(15, 23, 42, 0.8);
+
+        border: 1px dashed rgba(
+            167,
+            139,
+            250,
+            0.3
+        );
+
+        border-radius: 20px;
+
+        color: #64748b;
+    }
+
+    .empty-icon {
+        font-size: 45px;
+
+        margin-bottom: 15px;
+    }
+
+    .empty-card h3 {
+        color: #cbd5e1;
+
+        margin-bottom: 8px;
+    }
+
+    .error-card {
+        padding: 55px 25px;
+
+        text-align: center;
+
+        background: rgba(
+            127,
+            29,
+            29,
+            0.12
+        );
+
+        border: 1px solid rgba(
+            248,
+            113,
+            113,
+            0.25
+        );
+
+        border-radius: 20px;
+
+        color: #fca5a5;
+    }
+
+    .error-icon {
+        font-size: 45px;
+
+        margin-bottom: 15px;
+    }
+
+    .back-wrapper {
+        text-align: center;
+
+        margin-top: 30px;
+    }
+
+    .back-btn {
+        display: inline-block;
+
+        padding: 12px 22px;
+
+        color: #c4b5fd;
+
+        text-decoration: none;
+
+        border: 1px solid rgba(
+            167,
+            139,
+            250,
+            0.3
+        );
+
+        border-radius: 10px;
+
+        transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+        color: white;
+
+        border-color: #06b6d4;
+
+        background: rgba(
+            6,
+            182,
+            212,
+            0.06
+        );
+
+        box-shadow:
+            0 0 18px rgba(
+                6,
+                182,
+                212,
+                0.2
+            );
+
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 650px) {
+
+        body {
+            padding: 30px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .subjects-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .teacher-card {
+            padding: 22px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+
+    <h1>My Subjects</h1>
+
+    <p>
+        Subjects assigned to you
+    </p>
+
+</div>
+
+
+{% if teacher %}
+
+    <div class="teacher-card">
+
+        <div class="teacher-label">
+            TEACHER
+        </div>
+
+        <div class="teacher-name">
+
+            {{ teacher.first_name }}
+            {{ teacher.last_name }}
+
+        </div>
+
+    </div>
+
+
+    {% if subjects %}
+
+        <div class="subjects-grid">
+
+            {% for subject in subjects %}
+
+                <div class="subject-card">
+
+                    <div class="subject-icon">
+                        📚
+                    </div>
+
+                    <h3 class="subject-name">
+                        {{ subject.name }}
+                    </h3>
+
+                    {% if subject.description %}
+
+                        <p class="description">
+                            {{ subject.description }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-card">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h3>
+                No subjects assigned yet
+            </h3>
+
+            <p>
+                Your assigned subjects will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+{% else %}
+
+    <div class="error-card">
+
+        <div class="error-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Teacher profile not found.
+        </h3>
+
+    </div>
+
+{% endif %}
+
+
+<div class="back-wrapper">
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="back-btn"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

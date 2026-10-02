@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Children</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #f5f3ff;
+        background:
+            radial-gradient(circle at top left, #4c1d95 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #075985 0%, transparent 35%),
+            #070b16;
+        padding: 40px 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .header h1 {
+        font-size: 42px;
+        margin-bottom: 12px;
+        background: linear-gradient(90deg, #a78bfa, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+        color: #94a3b8;
+        font-size: 16px;
+    }
+
+    .parent-card {
+        background: rgba(15, 23, 42, 0.82);
+        border: 1px solid rgba(167, 139, 250, 0.25);
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow:
+            0 0 30px rgba(124, 58, 237, 0.12),
+            inset 0 0 20px rgba(6, 182, 212, 0.03);
+    }
+
+    .parent-card h2 {
+        font-size: 20px;
+        color: #c4b5fd;
+    }
+
+    .parent-name {
+        color: #22d3ee;
+    }
+
+    .children-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+    }
+
+    .child-card {
+        position: relative;
+        overflow: hidden;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        border-radius: 22px;
+        padding: 28px;
+        transition: 0.3s ease;
+    }
+
+    .child-card::before {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: #7c3aed;
+        filter: blur(70px);
+        opacity: 0.15;
+        top: -50px;
+        right: -40px;
+    }
+
+    .child-card:hover {
+        transform: translateY(-7px);
+        border-color: rgba(6, 182, 212, 0.65);
+        box-shadow:
+            0 10px 35px rgba(6, 182, 212, 0.12),
+            0 0 25px rgba(124, 58, 237, 0.12);
+    }
+
+    .avatar {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        font-size: 25px;
+        font-weight: bold;
+
+        color: white;
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+
+        box-shadow:
+            0 0 20px rgba(124, 58, 237, 0.35);
+    }
+
+    .child-card h3 {
+        font-size: 23px;
+        margin-bottom: 18px;
+        color: #f8fafc;
+    }
+
+    .info {
+        margin-bottom: 10px;
+        color: #94a3b8;
+        font-size: 15px;
+    }
+
+    .info strong {
+        color: #c4b5fd;
+    }
+
+    .view-btn {
+        display: inline-block;
+        margin-top: 18px;
+        padding: 11px 18px;
+
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+
+        border-radius: 10px;
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+
+        box-shadow:
+            0 0 15px rgba(6, 182, 212, 0.2);
+
+        transition: 0.3s ease;
+    }
+
+    .view-btn:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 0 25px rgba(6, 182, 212, 0.4);
+    }
+
+    .empty-card {
+        text-align: center;
+        padding: 45px 20px;
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px dashed rgba(167, 139, 250, 0.35);
+        border-radius: 20px;
+        color: #94a3b8;
+    }
+
+    .empty-icon {
+        font-size: 45px;
+        margin-bottom: 15px;
+    }
+
+    .error-card {
+        text-align: center;
+        padding: 35px;
+        border-radius: 20px;
+        background: rgba(127, 29, 29, 0.18);
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        color: #fca5a5;
+    }
+
+    .back {
+        display: inline-block;
+        margin-top: 35px;
+        padding: 12px 20px;
+
+        color: #c4b5fd;
+        text-decoration: none;
+
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        border-radius: 10px;
+
+        transition: 0.3s ease;
+    }
+
+    .back:hover {
+        color: white;
+        border-color: #06b6d4;
+        box-shadow: 0 0 18px rgba(6, 182, 212, 0.2);
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .child-card {
+            padding: 22px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+    <h1>My Children</h1>
+    <p>Manage and view your children's information</p>
+</div>
+
+
+{% if parent %}
+
+    <div class="parent-card">
+
+        <h2>
+            Parent:
+            <span class="parent-name">
+                {{ parent.first_name }}
+                {{ parent.last_name }}
+            </span>
+        </h2>
+
+    </div>
+
+
+    {% if students %}
+
+        <div class="children-grid">
+
+            {% for student in students %}
+
+                <div class="child-card">
+
+                    <div class="avatar">
+                        {{ student.first_name|first }}
+                    </div>
+
+                    <h3>
+                        {{ student.first_name }}
+                        {{ student.last_name }}
+                    </h3>
+
+                    <div class="info">
+                        <strong>Class:</strong>
+                        {{ student.class_room }}
+                    </div>
+
+                    <div class="info">
+                        <strong>Phone:</strong>
+                        {{ student.phone }}
+                    </div>
+
+                    <a
+                        href="{% url 'student_detail' student.pk %}"
+                        class="view-btn"
+                    >
+                        View Student →
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-card">
+
+            <div class="empty-icon">👨‍👩‍👧</div>
+
+            <h3>No children found.</h3>
+
+            <p>
+                There are no students connected to your parent account.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+{% else %}
+
+    <div class="error-card">
+
+        <h3>Parent profile not found.</h3>
+
+        <p>
+            Please contact the school administrator.
+        </p>
+
+    </div>
+
+{% endif %}
+
+
+<div style="text-align: center;">
+    <a href="{% url 'dashboard' %}" class="back">
+        ← Back to Dashboard
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

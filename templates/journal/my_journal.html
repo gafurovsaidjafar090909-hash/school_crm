@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Journal</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        background:
+            radial-gradient(circle at top left, #4c1d95 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #075985 0%, transparent 35%),
+            #070b16;
+
+        color: white;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 42px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        margin-top: 8px;
+        color: #94a3b8;
+    }
+
+    .line {
+        height: 1px;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #06b6d4,
+            transparent
+        );
+
+        margin: 30px 0;
+    }
+
+    .teacher-card {
+        padding: 20px 25px;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        border: 1px solid rgba(6, 182, 212, 0.3);
+
+        border-radius: 15px;
+
+        margin-bottom: 25px;
+
+        box-shadow:
+            0 0 20px rgba(6, 182, 212, 0.08);
+    }
+
+    .teacher-card span {
+        color: #94a3b8;
+    }
+
+    .teacher-card strong {
+        color: #67e8f9;
+        font-size: 18px;
+    }
+
+    .journal-list {
+        display: grid;
+        gap: 20px;
+    }
+
+    .journal-card {
+        padding: 25px;
+
+        background: rgba(15, 23, 42, 0.82);
+
+        border: 1px solid rgba(167, 139, 250, 0.3);
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 0 20px rgba(124, 58, 237, 0.12);
+
+        transition: 0.3s;
+    }
+
+    .journal-card:hover {
+        transform: translateY(-5px);
+
+        border-color: #06b6d4;
+
+        box-shadow:
+            0 0 25px rgba(6, 182, 212, 0.25);
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+
+        padding: 13px 0;
+
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .info:last-child {
+        border-bottom: none;
+    }
+
+    .label {
+        color: #94a3b8;
+    }
+
+    .value {
+        color: white;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .grade {
+        color: #a78bfa;
+    }
+
+    .present {
+        color: #4ade80;
+    }
+
+    .absent {
+        color: #f87171;
+    }
+
+    .empty {
+        padding: 30px;
+
+        text-align: center;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        border: 1px dashed #475569;
+
+        border-radius: 15px;
+
+        color: #94a3b8;
+    }
+
+    .error {
+        padding: 25px;
+
+        background: rgba(127, 29, 29, 0.15);
+
+        border: 1px solid rgba(248, 113, 113, 0.4);
+
+        border-radius: 15px;
+
+        color: #fca5a5;
+    }
+
+    .back {
+        display: inline-block;
+
+        margin-top: 30px;
+
+        padding: 12px 22px;
+
+        text-decoration: none;
+
+        color: #67e8f9;
+
+        border: 1px solid #06b6d4;
+
+        border-radius: 10px;
+
+        transition: 0.3s;
+    }
+
+    .back:hover {
+        background: rgba(6, 182, 212, 0.1);
+
+        box-shadow:
+            0 0 20px rgba(6, 182, 212, 0.25);
+
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .info {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .value {
+            text-align: left;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="container">
+    <div class="header">
+        <h1>My Journal</h1>
+        <p class="subtitle">Your student journal records</p>
+    </div>
+    <div class="line"></div>
+              
+    
+    {% if teacher %}
+
+        <div class="teacher-card">
+
+            <span>Teacher:</span>
+
+            <strong>
+                {{ teacher.first_name }}
+                {{ teacher.last_name }}
+            </strong>
+
+        </div>
+
+
+        {% if journals %}
+
+            <div class="journal-list">
+
+                {% for journal in journals %}
+
+                    <div class="journal-card">
+
+                        <div class="info">
+
+                            <span class="label">
+                                Student
+                            </span>
+
+                            <span class="value">
+                                {{ journal.student.first_name }}
+                                {{ journal.student.last_name }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Subject
+                            </span>
+
+                            <span class="value">
+                                {{ journal.subject.name }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Class
+                            </span>
+
+                            <span class="value">
+                                {{ journal.class_room }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Grade
+                            </span>
+
+                            <span class="value grade">
+                                {{ journal.grade|default:"No grade" }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Attendance
+                            </span>
+
+                            <span class="value">
+
+                                {% if journal.attendance %}
+
+                                    <span class="present">
+                                        ✓ Present
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="absent">
+                                        ✕ Absent
+                                    </span>
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Date
+                            </span>
+
+                            <span class="value">
+                                {{ journal.date }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+
+                <h3>No Journal Records</h3>
+
+                <p style="margin-top: 8px;">
+                    No journal records yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+    {% else %}
+
+        <div class="error">
+
+            <h3>Teacher Profile Not Found</h3>
+
+            <p style="margin-top: 8px;">
+                Your Teacher profile has not been created yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="back"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>

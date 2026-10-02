@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>My Profile</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #f8fafc;
+
+        background:
+            radial-gradient(circle at top left, #4c1d95 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #075985 0%, transparent 35%),
+            #070b16;
+
+        padding: 45px 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+
+        background: linear-gradient(
+            90deg,
+            #a78bfa,
+            #06b6d4
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .profile-card {
+        position: relative;
+        overflow: hidden;
+
+        background: rgba(15, 23, 42, 0.88);
+
+        border: 1px solid rgba(167, 139, 250, 0.25);
+
+        border-radius: 24px;
+
+        padding: 35px;
+
+        box-shadow:
+            0 0 40px rgba(124, 58, 237, 0.12),
+            inset 0 0 25px rgba(6, 182, 212, 0.03);
+    }
+
+    .profile-card::before {
+        content: "";
+
+        position: absolute;
+
+        width: 180px;
+        height: 180px;
+
+        top: -90px;
+        right: -70px;
+
+        background: #06b6d4;
+
+        filter: blur(80px);
+
+        opacity: 0.12;
+    }
+
+    .profile-header {
+        text-align: center;
+
+        padding-bottom: 30px;
+
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+
+        margin: 0 auto 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        color: white;
+
+        font-size: 35px;
+        font-weight: bold;
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #06b6d4
+        );
+
+        box-shadow:
+            0 0 30px rgba(124, 58, 237, 0.4);
+    }
+
+    .profile-header h2 {
+        color: #f8fafc;
+
+        font-size: 27px;
+
+        margin-bottom: 8px;
+    }
+
+    .role {
+        display: inline-block;
+
+        padding: 6px 14px;
+
+        border-radius: 20px;
+
+        color: #67e8f9;
+
+        background: rgba(6, 182, 212, 0.08);
+
+        border: 1px solid rgba(6, 182, 212, 0.25);
+
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .details {
+        display: grid;
+
+        gap: 14px;
+
+        margin-top: 25px;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 20px;
+
+        padding: 17px 18px;
+
+        border-radius: 13px;
+
+        background: rgba(30, 41, 59, 0.55);
+
+        border: 1px solid rgba(148, 163, 184, 0.08);
+
+        transition: 0.25s ease;
+    }
+
+    .detail-item:hover {
+        transform: translateX(4px);
+
+        border-color: rgba(6, 182, 212, 0.3);
+
+        background: rgba(30, 41, 59, 0.8);
+    }
+
+    .label {
+        color: #94a3b8;
+
+        font-size: 14px;
+    }
+
+    .value {
+        color: #e2e8f0;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        text-align: right;
+    }
+
+    .accent {
+        color: #67e8f9;
+    }
+
+    .class-value {
+        color: #a78bfa;
+    }
+
+    .error-card {
+        text-align: center;
+
+        padding: 55px 25px;
+
+        border-radius: 22px;
+
+        background: rgba(127, 29, 29, 0.15);
+
+        border: 1px solid rgba(248, 113, 113, 0.25);
+
+        color: #fca5a5;
+    }
+
+    .error-icon {
+        font-size: 45px;
+
+        margin-bottom: 15px;
+    }
+
+    .back-wrapper {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .back-btn {
+        display: inline-block;
+
+        padding: 12px 20px;
+
+        color: #c4b5fd;
+
+        text-decoration: none;
+
+        border: 1px solid rgba(167, 139, 250, 0.3);
+
+        border-radius: 10px;
+
+        transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+        color: white;
+
+        border-color: #06b6d4;
+
+        box-shadow:
+            0 0 18px rgba(6, 182, 212, 0.2);
+
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 30px 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .profile-card {
+            padding: 25px 18px;
+        }
+
+        .detail-item {
+            flex-direction: column;
+            align-items: flex-start;
+
+            gap: 7px;
+        }
+
+        .value {
+            text-align: left;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+    <h1>My Profile</h1>
+    <p>View your personal student information</p>
+</div>
+
+
+{% if student %}
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+
+            <div class="avatar">
+                {{ student.first_name|first }}
+            </div>
+
+            <h2>
+                {{ student.first_name }}
+                {{ student.last_name }}
+            </h2>
+
+            <span class="role">
+                STUDENT
+            </span>
+
+        </div>
+
+
+        <div class="details">
+
+            <div class="detail-item">
+
+                <span class="label">
+                    First Name
+                </span>
+
+                <span class="value">
+                    {{ student.first_name }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="label">
+                    Last Name
+                </span>
+
+                <span class="value">
+                    {{ student.last_name }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="label">
+                    Date of Birth
+                </span>
+
+                <span class="value accent">
+                    {{ student.date_of_birth }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="label">
+                    Phone
+                </span>
+
+                <span class="value">
+                    {{ student.phone }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="label">
+                    Address
+                </span>
+
+                <span class="value">
+                    {{ student.address }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="label">
+                    Class
+                </span>
+
+                <span class="value class-value">
+                    {{ student.class_room }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% else %}
+
+    <div class="error-card">
+
+        <div class="error-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Your Student profile has not been created yet.
+        </h3>
+
+    </div>
+
+{% endif %}
+
+
+<div class="back-wrapper">
+
+    <a href="{% url 'dashboard' %}" class="back-btn">
+        ← Back to Dashboard
+    </a>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

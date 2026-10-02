@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Journal {{ class_room.grade }}{{ class_room.parallel }}
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #1e1b4b,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #083344,
+                    transparent 35%
+                ),
+                #070b16;
+
+            color: #e5e7eb;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .title-box h1 {
+            font-size: 34px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #a78bfa,
+                    #06b6d4
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title-box p {
+            margin-top: 8px;
+            color: #94a3b8;
+        }
+
+        .back {
+            text-decoration: none;
+
+            padding: 12px 20px;
+
+            border-radius: 12px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4c1d95,
+                    #075985
+                );
+
+            border: 1px solid #334155;
+
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 20px
+                rgba(6, 182, 212, 0.35);
+        }
+
+
+        /* STUDENTS */
+
+        .students-card {
+
+            background:
+                rgba(15, 23, 42, 0.82);
+
+            border:
+                1px solid
+                rgba(124, 58, 237, 0.35);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.35);
+        }
+
+        .section-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+
+            font-size: 22px;
+
+            color: #c4b5fd;
+        }
+
+        .student-count {
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(6, 182, 212, 0.12);
+
+            color: #67e8f9;
+
+            font-size: 14px;
+        }
+
+        .students-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 12px;
+        }
+
+        .student {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 15px;
+
+            background:
+                rgba(30, 41, 59, 0.7);
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.12);
+
+            border-radius: 12px;
+
+            transition: 0.25s;
+        }
+
+        .student:hover {
+
+            border-color:
+                rgba(6, 182, 212, 0.5);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 15px
+                rgba(6, 182, 212, 0.12);
+        }
+
+        .student-number {
+
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #06b6d4
+                );
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .student-name {
+            color: #e2e8f0;
+        }
+
+
+        /* JOURNAL */
+
+        .journal-card {
+
+            background:
+                rgba(15, 23, 42, 0.88);
+
+            border:
+                1px solid
+                rgba(124, 58, 237, 0.35);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.35);
+        }
+
+        .journal-title {
+
+            margin-bottom: 22px;
+
+            color: #c4b5fd;
+
+            font-size: 22px;
+        }
+
+        .date-block {
+
+            margin-bottom: 25px;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.15);
+        }
+
+        .date-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(76, 29, 149, 0.45),
+                    rgba(7, 89, 133, 0.35)
+                );
+
+            border-bottom:
+                1px solid
+                rgba(148, 163, 184, 0.15);
+        }
+
+        .date {
+
+            color: #67e8f9;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        .date-label {
+
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 700px;
+        }
+
+        th {
+
+            padding: 14px 12px;
+
+            text-align: center;
+
+            color: #a5b4fc;
+
+            background:
+                rgba(30, 41, 59, 0.8);
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        th:first-child,
+        td:first-child {
+
+            text-align: left;
+        }
+
+        td {
+
+            padding: 13px 12px;
+
+            border-top:
+                1px solid
+                rgba(148, 163, 184, 0.08);
+
+            color: #cbd5e1;
+
+            text-align: center;
+        }
+
+        tbody tr {
+
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+
+            background:
+                rgba(124, 58, 237, 0.08);
+        }
+
+        .number {
+
+            width: 50px;
+
+            color: #64748b;
+        }
+
+        .name {
+
+            font-weight: 500;
+
+            color: #f1f5f9;
+        }
+
+
+        /* CHECKBOX */
+
+        .attendance {
+
+            width: 20px;
+            height: 20px;
+
+            cursor: pointer;
+
+            accent-color: #06b6d4;
+        }
+
+
+        /* SCORE */
+
+        .score {
+
+            width: 55px;
+
+            padding: 7px;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            border:
+                1px solid
+                rgba(124, 58, 237, 0.35);
+
+            background:
+                rgba(15, 23, 42, 0.8);
+
+            color: #e2e8f0;
+
+            outline: none;
+        }
+
+        .score:focus {
+
+            border-color: #06b6d4;
+
+            box-shadow:
+                0 0 10px
+                rgba(6, 182, 212, 0.2);
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+
+            padding: 40px;
+
+            text-align: center;
+
+            color: #64748b;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .title-box h1 {
+                font-size: 27px;
+            }
+
+            .students-card,
+            .journal-card {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="title-box">
+
+            <h1>
+                Journal
+                {{ class_room.grade }}{{ class_room.parallel }}
+            </h1>
+
+            <p>
+                Class journal and student attendance
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'class_detail' class_room.pk %}"
+            class="back"
+        >
+            ← Back to Class
+        </a>
+
+    </div>
+
+
+
+    <!-- STUDENTS -->
+
+    <div class="students-card">
+
+        <div class="section-title">
+
+            <h2>
+                STUDENTS
+            </h2>
+
+            <span class="student-count">
+
+                {{ students|length }}
+                Students
+
+            </span>
+
+        </div>
+
+
+        {% if students %}
+
+            <div class="students-grid">
+
+                {% for student in students %}
+
+                    <div class="student">
+
+                        <span class="student-number">
+
+                            {{ forloop.counter }}
+
+                        </span>
+
+                        <span class="student-name">
+
+                            {{ student.first_name }}
+                            {{ student.last_name }}
+
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="empty">
+                No students in this class.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- JOURNAL -->
+
+    <div class="journal-card">
+
+        <h2 class="journal-title">
+            ATTENDANCE & SCORE
+        </h2>
+
+
+        {% if journals %}
+
+            {% regroup journals by date as date_groups %}
+
+
+            {% for group in date_groups %}
+
+                <div class="date-block">
+
+
+                    <!-- DATE -->
+
+                    <div class="date-header">
+
+                        <span class="date">
+
+                            {{ group.grouper|date:"d.m.Y" }}
+
+                        </span>
+
+                        <span class="date-label">
+
+                            ATTENDANCE / SCORE
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- TABLE -->
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        #
+                                    </th>
+
+                                    <th>
+                                        Student
+                                    </th>
+
+                                    <th>
+                                        Att
+                                    </th>
+
+                                    <th>
+                                        Score
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                {% for journal in group.list %}
+
+                                    <tr>
+
+                                        <td class="number">
+                                            {{ forloop.counter }}
+                                        </td>
+
+                                        <td class="name">
+
+                                            {{ journal.student.first_name }}
+                                            {{ journal.student.last_name }}
+
+                                        </td>
+
+                                        <td>
+
+                                            {% if journal.attendance %}
+
+                                                <input
+                                                    type="checkbox"
+                                                    class="attendance"
+                                                    checked
+                                                    disabled
+                                                >
+
+                                            {% else %}
+
+                                                <input
+                                                    type="checkbox"
+                                                    class="attendance"
+                                                    disabled
+                                                >
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+
+                                            <input
+                                                type="text"
+                                                class="score"
+                                                value="{{ journal.score|default:'-' }}"
+                                                disabled
+                                            >
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty">
+
+                No journal records yet.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

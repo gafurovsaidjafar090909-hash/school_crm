@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            color: #e2e8f0;
+
+            background: linear-gradient(
+                180deg,
+                #050816 0%,
+                #0b1030 55%,
+                #14123a 100%
+            );
+        }
+
+        /* ================= BACKGROUND ================= */
+
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora {
+            position: absolute;
+            left: -20%;
+            width: 140%;
+            height: 55%;
+
+            filter: blur(70px);
+            opacity: .55;
+            mix-blend-mode: screen;
+
+            animation: sway 14s ease-in-out infinite alternate;
+        }
+
+        .a1 {
+            top: -10%;
+
+            background: radial-gradient(
+                ellipse at 30% 50%,
+                #22d3ee,
+                transparent 60%
+            );
+        }
+
+        .a2 {
+            top: 0;
+
+            background: radial-gradient(
+                ellipse at 60% 50%,
+                #a78bfa,
+                transparent 60%
+            );
+
+            animation-duration: 18s;
+            animation-delay: -5s;
+        }
+
+        .a3 {
+            top: 8%;
+
+            background: radial-gradient(
+                ellipse at 80% 50%,
+                #34d399,
+                transparent 60%
+            );
+
+            animation-duration: 22s;
+            animation-delay: -9s;
+
+            opacity: .4;
+        }
+
+        @keyframes sway {
+            0% {
+                transform: translateX(-8%) skewX(-6deg) scaleY(1);
+            }
+
+            100% {
+                transform: translateX(8%) skewX(6deg) scaleY(1.3);
+            }
+        }
+
+        /* ================= STARS ================= */
+
+        .stars,
+        .stars::before,
+        .stars::after {
+            content: "";
+
+            position: absolute;
+
+            width: 2px;
+            height: 2px;
+
+            border-radius: 50%;
+
+            background: transparent;
+
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        .stars {
+            top: 0;
+            left: 0;
+
+            box-shadow:
+                8vw 12vh #fff,
+                22vw 6vh #cbd5e1,
+                35vw 20vh #fff,
+                48vw 9vh #e0e7ff,
+                61vw 17vh #fff,
+                74vw 5vh #cbd5e1,
+                88vw 14vh #fff,
+                94vw 27vh #e0e7ff,
+                14vw 32vh #fff,
+                41vw 36vh #cbd5e1,
+                67vw 31vh #fff,
+                82vw 40vh #e0e7ff,
+                5vw 48vh #fff,
+                28vw 52vh #cbd5e1,
+                55vw 46vh #fff,
+                91vw 55vh #fff,
+                18vw 66vh #e0e7ff,
+                46vw 70vh #fff,
+                72vw 64vh #cbd5e1,
+                96vw 74vh #fff;
+        }
+
+        .stars::before {
+            box-shadow:
+                12vw 24vh #fff,
+                30vw 14vh #e0e7ff,
+                52vw 28vh #fff,
+                78vw 22vh #cbd5e1,
+                3vw 60vh #fff,
+                64vw 58vh #e0e7ff,
+                86vw 80vh #fff;
+
+            animation-delay: -1.3s;
+        }
+
+        .stars::after {
+            box-shadow:
+                20vw 42vh #fff,
+                44vw 60vh #cbd5e1,
+                70vw 48vh #fff,
+                92vw 36vh #e0e7ff,
+                10vw 80vh #fff,
+                58vw 84vh #fff;
+
+            animation-delay: -2.6s;
+        }
+
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: .25;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ================= FLOATING ORBS ================= */
+
+        .orb {
+            position: absolute;
+            bottom: -80px;
+
+            border-radius: 50%;
+
+            opacity: 0;
+
+            animation: rise linear infinite;
+        }
+
+        .o1 {
+            left: 8%;
+            width: 26px;
+            height: 26px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #67e8f9 40%,
+                transparent 72%
+            );
+
+            animation-duration: 16s;
+        }
+
+        .o2 {
+            left: 22%;
+            width: 14px;
+            height: 14px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #f9a8d4 40%,
+                transparent 72%
+            );
+
+            animation-duration: 12s;
+            animation-delay: -3s;
+        }
+
+        .o3 {
+            left: 40%;
+            width: 34px;
+            height: 34px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #a5b4fc 40%,
+                transparent 72%
+            );
+
+            animation-duration: 20s;
+            animation-delay: -8s;
+        }
+
+        .o4 {
+            left: 58%;
+            width: 18px;
+            height: 18px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #6ee7b7 40%,
+                transparent 72%
+            );
+
+            animation-duration: 14s;
+            animation-delay: -5s;
+        }
+
+        .o5 {
+            left: 74%;
+            width: 30px;
+            height: 30px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #fcd34d 40%,
+                transparent 72%
+            );
+
+            animation-duration: 18s;
+            animation-delay: -11s;
+        }
+
+        .o6 {
+            left: 90%;
+            width: 16px;
+            height: 16px;
+
+            background: radial-gradient(
+                circle at 30% 30%,
+                #fff,
+                #f9a8d4 40%,
+                transparent 72%
+            );
+
+            animation-duration: 13s;
+            animation-delay: -2s;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translate(0, 0) scale(.6);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: .9;
+            }
+
+            50% {
+                transform: translate(30px, -55vh) scale(1);
+            }
+
+            90% {
+                opacity: .6;
+            }
+
+            100% {
+                transform: translate(-20px, -115vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ================= REGISTER CARD ================= */
+
+        .page {
+            position: relative;
+            z-index: 1;
+
+            min-height: 100vh;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .card {
+            position: relative;
+
+            width: 100%;
+            max-width: 430px;
+
+            margin: 20px 0;
+            padding: 36px 34px;
+
+            background: rgba(255, 255, 255, .06);
+
+            backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, .14);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, .45),
+                inset 0 1px 0 rgba(255, 255, 255, .12);
+
+            animation: fadeUp 1s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ================= AVATAR ================= */
+
+        .avatar-box {
+            display: flex;
+            justify-content: center;
+
+            margin-bottom: 12px;
+        }
+
+        .avatar {
+            width: 82px;
+            height: 82px;
+
+            animation: bounce 3s ease-in-out infinite;
+
+            filter:
+                drop-shadow(0 0 18px rgba(34, 211, 238, .35));
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* ================= TITLE ================= */
+
+        h1 {
+            margin: 0 0 8px;
+
+            text-align: center;
+
+            font-size: 34px;
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #67e8f9,
+                    #c4b5fd,
+                    #f9a8d4,
+                    #67e8f9
+                );
+
+            background-size: 300% 100%;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation: shimmer 8s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 300% 0;
+            }
+        }
+
+        /* ================= FORM ================= */
+
+        form p {
+            margin: 0 0 17px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #c4b5fd;
+        }
+
+        .helptext {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        form ul {
+            margin: 0;
+            padding-left: 18px;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border-radius: 13px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            border: 1px solid rgba(255, 255, 255, .14);
+
+            background: rgba(5, 8, 22, .65);
+
+            color: #e2e8f0;
+
+            transition: .25s;
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        input:focus {
+            border-color: #22d3ee;
+
+            box-shadow:
+                0 0 0 4px rgba(34, 211, 238, .12),
+                0 0 20px rgba(34, 211, 238, .18);
+        }
+
+        /* ================= BUTTON ================= */
+
+        button {
+            width: 100%;
+
+            margin-top: 7px;
+
+            padding: 14px;
+
+            border: 0;
+
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #8b5cf6,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 22px rgba(139, 92, 246, .55);
+
+            transition:
+                transform .25s,
+                box-shadow .25s;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02);
+
+            box-shadow:
+                0 0 36px rgba(139, 92, 246, .85);
+        }
+
+        button:active {
+            transform: scale(.98);
+        }
+
+        /* ================= ERRORS ================= */
+
+        .errorlist {
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+
+            color: #fda4af;
+
+            font-size: 13px;
+        }
+
+        /* ================= LOGIN LINK ================= */
+
+        .switch {
+            margin: 20px 0 0;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #94a3b8;
+        }
+
+        .switch a {
+            color: #67e8f9;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: .2s;
+        }
+
+        .switch a:hover {
+            color: #c4b5fd;
+
+            text-shadow:
+                0 0 12px rgba(103, 232, 249, .7);
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 640px) {
+
+            .card {
+                padding: 30px 22px;
+                border-radius: 24px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .avatar {
+                width: 74px;
+                height: 74px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+
+    <div class="bg">
+
+        <div class="aurora a1"></div>
+        <div class="aurora a2"></div>
+        <div class="aurora a3"></div>
+
+        <div class="stars"></div>
+
+        <span class="orb o1"></span>
+        <span class="orb o2"></span>
+        <span class="orb o3"></span>
+        <span class="orb o4"></span>
+        <span class="orb o5"></span>
+        <span class="orb o6"></span>
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <main class="page">
+
+        <div class="card">
+
+            <div class="avatar-box">
+
+                <svg class="avatar" viewBox="0 0 100 100">
+
+                    <defs>
+
+                        <linearGradient
+                            id="g"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                        >
+
+                            <stop
+                                offset="0"
+                                stop-color="#22d3ee"
+                            />
+
+                            <stop
+                                offset="0.5"
+                                stop-color="#a78bfa"
+                            />
+
+                            <stop
+                                offset="1"
+                                stop-color="#f472b6"
+                            />
+
+                        </linearGradient>
+
+                    </defs>
+
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="48"
+                        fill="url(#g)"
+                    />
+
+                    <circle
+                        cx="50"
+                        cy="38"
+                        r="15"
+                        fill="#fff"
+                    />
+
+                    <path
+                        d="M20 82 Q50 48 80 82 Z"
+                        fill="#fff"
+                    />
+
+                    <!-- PLUS -->
+
+                    <circle
+                        cx="78"
+                        cy="22"
+                        r="14"
+                        fill="#22d3ee"
+                    />
+
+                    <path
+                        d="M78 15v14M71 22h14"
+                        stroke="#fff"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <h1>Register</h1>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+
+            <p class="switch">
+                Already have an account?
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

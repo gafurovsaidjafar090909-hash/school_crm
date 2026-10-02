@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Lesson</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: #f8fafc;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #4c1d95 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #075985 0%,
+                    transparent 35%
+                ),
+                #070b16;
+
+            padding: 45px 20px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 42px;
+            font-weight: 800;
+
+            background: linear-gradient(
+                90deg,
+                #a78bfa,
+                #06b6d4
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            margin-top: 10px;
+
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* CARD */
+
+        .form-card {
+            padding: 32px;
+
+            background: rgba(15, 23, 42, 0.88);
+
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            border-radius: 22px;
+
+            box-shadow:
+                0 0 35px rgba(124, 58, 237, 0.15),
+                0 0 70px rgba(6, 182, 212, 0.05);
+
+            backdrop-filter: blur(12px);
+        }
+
+        /* FORM GROUP */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #c4b5fd;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* SELECT */
+
+        select,
+        input[type="number"] {
+            width: 100%;
+
+            padding: 14px 16px;
+
+            color: #f8fafc;
+            background: rgba(2, 6, 23, 0.8);
+
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: 0.25s;
+        }
+
+        select:focus,
+        input[type="number"]:focus {
+            border-color: #06b6d4;
+
+            box-shadow:
+                0 0 0 3px rgba(6, 182, 212, 0.1),
+                0 0 20px rgba(6, 182, 212, 0.15);
+        }
+
+        select option {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* LESSON SECTION */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 30px 0 20px;
+        }
+
+        .section-title h3 {
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 19px;
+        }
+
+        .section-line {
+            flex: 1;
+
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                rgba(124, 58, 237, 0.7),
+                rgba(6, 182, 212, 0.1)
+            );
+        }
+
+        /* NUMBER */
+
+        .number-wrapper {
+            position: relative;
+        }
+
+        .number-hint {
+            margin-top: 7px;
+
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 30px;
+            padding-top: 25px;
+
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .submit-btn {
+            border: none;
+            border-radius: 12px;
+
+            padding: 14px 25px;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #06b6d4
+            );
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 0 20px rgba(124, 58, 237, 0.2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 30px rgba(6, 182, 212, 0.35);
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            padding: 13px 20px;
+
+            color: #a78bfa;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 12px;
+
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            color: #06b6d4;
+
+            border-color: #06b6d4;
+
+            transform: translateX(-3px);
+
+            box-shadow:
+                0 0 18px rgba(6, 182, 212, 0.15);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 30px 15px;
+            }
+
+            .header h1 {
+                font-size: 34px;
+            }
+
+            .form-card {
+                padding: 22px 18px;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            .submit-btn,
+            .back-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>Add Lesson</h1>
+
+        <p>
+            Create a new lesson and add it to the timetable
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            <!-- Teacher -->
+
+            <div class="form-group">
+
+                <label for="teacher">
+                    Teacher
+                </label>
+
+                <select
+                    name="teacher"
+                    id="teacher"
+                    required
+                >
+
+                    <option value="">
+                        Select Teacher
+                    </option>
+
+                    {% for teacher in teachers %}
+
+                        <option value="{{ teacher.id }}">
+                            {{ teacher.name }} {{ teacher.surname }}
+                        </option>
+
+                    {% empty %}
+
+                        <option value="">
+                            No teachers available
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Subject -->
+
+            <div class="form-group">
+
+                <label for="subject">
+                    Subject
+                </label>
+
+                <select
+                    name="subject"
+                    id="subject"
+                    required
+                >
+
+                    <option value="">
+                        Select Subject
+                    </option>
+
+                    {% for subject in subjects %}
+
+                        <option value="{{ subject.id }}">
+                            {{ subject.name }}
+                        </option>
+
+                    {% empty %}
+
+                        <option value="">
+                            No subjects available
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Class -->
+
+            <div class="form-group">
+
+                <label for="class_room">
+                    Class
+                </label>
+
+                <select
+                    name="class_room"
+                    id="class_room"
+                    required
+                >
+
+                    <option value="">
+                        Select Class
+                    </option>
+
+                    {% for class_room in classes %}
+
+                        <option value="{{ class_room.id }}">
+                            {{ class_room.grade }}-{{ class_room.parallel }}
+                        </option>
+
+                    {% empty %}
+
+                        <option value="">
+                            No classes available
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="section-title">
+
+                <h3>
+                    Schedule
+                </h3>
+
+                <div class="section-line"></div>
+
+            </div>
+
+
+            <!-- Day -->
+
+            <div class="form-group">
+
+                <label for="day">
+                    Day
+                </label>
+
+                <select
+                    name="day"
+                    id="day"
+                    required
+                >
+
+                    <option value="">
+                        Select Day
+                    </option>
+
+                    <option value="monday">
+                        Monday
+                    </option>
+
+                    <option value="tuesday">
+                        Tuesday
+                    </option>
+
+                    <option value="wednesday">
+                        Wednesday
+                    </option>
+
+                    <option value="thursday">
+                        Thursday
+                    </option>
+
+                    <option value="friday">
+                        Friday
+                    </option>
+
+                    <option value="saturday">
+                        Saturday
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Lesson Number -->
+
+            <div class="form-group">
+
+                <label for="lesson_number">
+                    Lesson Number
+                </label>
+
+                <div class="number-wrapper">
+
+                    <input
+                        type="number"
+                        id="lesson_number"
+                        name="lesson_number"
+                        min="1"
+                        max="10"
+                        required
+                        placeholder="Enter lesson number"
+                    >
+
+                    <div class="number-hint">
+                        Lesson number must be between 1 and 10.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="actions">
+
+                <a
+                    href="{% url 'timetable_list' %}"
+                    class="back-btn"
+                >
+                    ← Back to Timetable
+                </a>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    + Add Lesson
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
