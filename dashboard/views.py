@@ -17,3 +17,27 @@ class DashboardView(View):
         else:
             template = "dashboard/dashboard.html"
         return render(request, template)
+
+
+from django.shortcuts import render
+
+from .utils import ask_groq
+
+
+def ask_view(request):
+
+    answer = None
+
+    if request.method == "POST":
+
+        question = request.POST.get("question")
+
+        answer = ask_groq(question)
+
+    return render(
+        request,
+        "ask.html",
+        {
+            "answer": answer
+        }
+    )

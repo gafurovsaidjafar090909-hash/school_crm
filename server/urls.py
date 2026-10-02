@@ -23,11 +23,4 @@ urlpatterns = [
     path("timetable/", include("timetable.urls")),
 
     path("journal/", include("journal.urls")),
-
-   path(
-        "classes/",
-        include("classes.urls")
-    ),
-    path("journal/", include("journal.urls")),
 ]
-

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ask Groq</title>
+</head>
+
+<body>
+
+    <h1>Ask Groq AI</h1>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <textarea
+            name="question"
+            placeholder="Write your question..."
+            rows="5"
+            cols="50"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Ask
+        </button>
+
+    </form>
+
+    {% if answer %}
+
+        <hr>
+
+        <h2>Answer:</h2>
+
+        <p>
+            {{ answer }}
+        </p>
+
+    {% endif %}
+
+</body>
+
+</html>
